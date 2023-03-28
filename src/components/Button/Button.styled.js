@@ -7,7 +7,7 @@ export const Button = styled.button`
 
   padding: 8px 16px;
   border-radius: 2px;
-  background-color: #3f51b5;
+  background-color: #9CFF98;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
 
@@ -26,6 +26,6 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
-    background-color: #303f9f;
+    background-color: #CC99FF;
   }
 `;

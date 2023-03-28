@@ -1,16 +1,38 @@
+import { useState } from 'react';
+import Modal from 'components/Modal';
+
 import PropTypes from 'prop-types';
 
 import { ItemGallery, ImgGallery } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
+  const [modalInfo, setModalInfo] = useState(null);
+
+  const handlerOnClickImg = event => {
+    setModalInfo({
+      src: event.target.dataset.largeImg,
+      alt: event.target.alt,
+    });
+  };
+
+  const onCloseModal = () => {
+    setModalInfo(null);
+  };
+
   return (
-    <ItemGallery>
-      <ImgGallery
-        src={webformatURL}
-        alt={tags}
-        data-large-img={largeImageURL}
-      />
-    </ItemGallery>
+    <>
+      <ItemGallery className="gallery-item" onClick={handlerOnClickImg}>
+        <ImgGallery
+          src={webformatURL}
+          alt={tags}
+          data-large-img={largeImageURL}
+        />
+      </ItemGallery>
+
+      {modalInfo !== null && (
+        <Modal modalInfo={modalInfo} handlerOnCloseModal={onCloseModal} />
+      )}
+    </>
   );
 };
 
@@ -19,5 +41,6 @@ ImageGalleryItem.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
 };
+
 
 export default ImageGalleryItem;

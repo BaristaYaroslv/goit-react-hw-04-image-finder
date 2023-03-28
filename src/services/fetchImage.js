@@ -7,7 +7,7 @@ const PER_PAGE = 12;
 
 const instanceAxios = axios.create({
   baseURL: BASE_URL,
-  timeout: 1000,
+  timeout: 1500,
 });
 
 function getParamReguest(textQuery, numberPage) {
@@ -23,12 +23,17 @@ function getParamReguest(textQuery, numberPage) {
   };
 }
 
-async function getImage(textQuery, numberPage = 1) {
-  if (textQuery === '') return [];
+async function getImage(textQuery, numberPage = 1, controller) {
+  if (textQuery === '')
+    return {
+      itemsGallary: [],
+      noMore: false,
+    };
 
   try {
     const response = await instanceAxios.get(URL, {
       params: getParamReguest(textQuery, numberPage),
+      signal: controller.signal,
     });
 
     const { hits: arrayFindElement, totalHits } = response.data;
